@@ -2018,7 +2018,6 @@ togglescratch(const Arg *arg)
 		}
 	} else
 		spawn(arg);
-   focus(c);
 }
 
 void
