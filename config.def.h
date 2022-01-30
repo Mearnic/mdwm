@@ -1,12 +1,12 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 10;        /* border pixel of windows */
+static const unsigned int borderpx  = 5;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const unsigned int gappih    = 5;       /* horiz inner gap between windows */
-static const unsigned int gappiv    = 5;       /* vert inner gap between windows */
-static const unsigned int gappoh    = 5;       /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov    = 5;       /* vert outer gap between windows and screen edge */
+static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
+static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
+static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov    = 10;       /* vert outer gap between windows and screen edge */
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -16,18 +16,19 @@ static const int horizpadbar        = 5;        /* horizontal padding for status
 static const int vertpadbar         = 10;        /* vertical padding for statusbar */
 static const char *fonts[]          = { "monospace:size=14","Wuncon Siji:pixelsize=35","SauceCodePro Nerd Font:pixelsize=35" };
 static const char dmenufont[]       = "monospace:size=14";
-static const char col_gray1[]       = "#222222";
+static const char col_gray1[]       = "#333333";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#333333";
-static const char col_border[]      = "#33ccff";
-static const unsigned int baralpha = 0xd0;
+static const char col_cyan[]        = "#444444";
+static const char col_border[]      = "#000000";
+static const char col_border_sel[]  = "#FFB90F";
+static const unsigned int baralpha = 0xE0;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_cyan},
-	[SchemeSel]  = { col_gray4, col_cyan,  col_border  },
+	[SchemeNorm] = { col_gray3, col_gray1, col_border},
+	[SchemeSel]  = { col_border_sel, col_cyan,  col_border_sel  },
 	[SchemeHid]  = { col_cyan,  col_gray1, col_cyan  },
 };
 static const unsigned int alphas[][3]      = {
@@ -53,7 +54,7 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.5; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
@@ -98,16 +99,16 @@ static Key keys[] = {
 	{ Mod1Mask|ShiftMask,           XK_l,      setmfact,       {.f = +0.05} },
 	//{ Mod1Mask,                     XK_h,      focusstack,     {.i = -1} },
 	//{ Mod1Mask,                     XK_l,      focusstack,     {.i = +1} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
+	{ Mod1Mask,                     XK_Return, zoom,           {0} },
 	{ Mod1Mask,                     XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	//{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ Mod1Mask|ShiftMask,           XK_f,      fullscreen,     {0} },
 	//{ Mod1Mask,                     XK_Tab,    focusstack,     {.i = +1 } },
 	//{ Mod1Mask|ShiftMask,           XK_Tab,    focusstack,     {.i = -1 } },
-	{ Mod1Mask,                     XK_space,  setlayout,      {0} },
+	{ MODKEY,                     XK_Tab,  setlayout,      {0} },
 	//{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 
 	{ MODKEY|ControlMask,           XK_0,      view,           {.ui = ~0 } },
@@ -123,7 +124,6 @@ static Key keys[] = {
 
    //{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
    //{ MODKEY|ShiftMask,             XK_k,      rotatestack,    {.i = -1 } },
-   
 //  { MODKEY,                       XK_j,      focusstackvis,  {.i = +1 } },
 //  { MODKEY,                       XK_k,      focusstackvis,  {.i = -1 } },
 //  { MODKEY|ShiftMask,             XK_j,      focusstackhid,  {.i = +1 } },
