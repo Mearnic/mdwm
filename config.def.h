@@ -122,8 +122,8 @@ static Key keys[] = {
 	{ ShiftMask,                    XK_space,  togglescratch,  {.v = scratchpadcmd } },
 
 
-   //{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
-   //{ MODKEY|ShiftMask,             XK_k,      rotatestack,    {.i = -1 } },
+   { Mod1Mask|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
+   { Mod1Mask|ShiftMask,             XK_k,      rotatestack,    {.i = -1 } },
 //  { MODKEY,                       XK_j,      focusstackvis,  {.i = +1 } },
 //  { MODKEY,                       XK_k,      focusstackvis,  {.i = -1 } },
 //  { MODKEY|ShiftMask,             XK_j,      focusstackhid,  {.i = +1 } },
