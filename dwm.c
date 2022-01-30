@@ -140,7 +140,7 @@ struct Monitor {
 	Client *stack;
 	Monitor *next;
 	Window barwin;
-	const Layout *lt[3];
+	const Layout *lt[2];
 	Pertag *pertag;
 };
 
@@ -739,7 +739,6 @@ createmon(void)
 
 		m->pertag->ltidxs[i][0] = m->lt[0];
 		m->pertag->ltidxs[i][1] = m->lt[1];
-		/*m->pertag->ltidxs[i][2] = m->lt[2];*/
 		m->pertag->sellts[i] = m->sellt;
 
 		m->pertag->showbars[i] = m->showbar;
@@ -1922,7 +1921,7 @@ fullscreen(const Arg *arg)
 {
 	if (selmon->showbar) {
 		for(last_layout = (Layout *)layouts; last_layout != selmon->lt[selmon->sellt]; last_layout++);
-		setlayout(&((Arg) { .v = &layouts[2] }));
+		setlayout(&((Arg) { .v = &layouts[1] }));
 	} else {
 		setlayout(&((Arg) { .v = last_layout }));
 	}
@@ -2038,8 +2037,8 @@ void
 setlayout(const Arg *arg)
 {
 	if (!arg || !arg->v || arg->v != selmon->lt[selmon->sellt])
-		/*selmon->sellt = selmon->pertag->sellts[selmon->pertag->curtag] ^= 1;*/
-		selmon->sellt = (selmon->sellt + 1 ) % 3;
+      selmon->sellt = selmon->pertag->sellts[selmon->pertag->curtag] ^= 1;
+		/*selmon->sellt = (selmon->sellt + 1 ) % 3;*/
 	if (arg && arg->v)
 		selmon->lt[selmon->sellt] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt] = (Layout *)arg->v;
 	strncpy(selmon->ltsymbol, selmon->lt[selmon->sellt]->symbol, sizeof selmon->ltsymbol);
