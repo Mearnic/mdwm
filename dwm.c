@@ -183,6 +183,7 @@ static void focusstackhid(const Arg *arg);
 static void focusstack(int inc, int vis);
 static int getrootptr(int *x, int *y);
 static long getstate(Window w);
+static pid_t getstatusbarpid();
 static int gettextprop(Window w, Atom atom, char *text, unsigned int size);
 static void grabbuttons(Client *c, int focused);
 static void grabkeys(void);
@@ -224,6 +225,7 @@ static void show(const Arg *arg);
 static void showwin(Client *c);
 static void showhide(Client *c);
 static void sigchld(int unused);
+static void sigstatusbar(const Arg *arg);
 static void spawn(const Arg *arg);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
@@ -259,6 +261,9 @@ static void zoom(const Arg *arg);
 /* variables */
 static const char broken[] = "broken";
 static char stext[256];
+static int statusw;
+static int statussig;
+static pid_t statuspid = -1;
 static int screen;
 static int sw, sh;           /* X display screen geometry width, height */
 static int bh, blw = 0;      /* bar geometry */
@@ -459,6 +464,7 @@ buttonpress(XEvent *e)
 	Client *c;
 	Monitor *m;
 	XButtonPressedEvent *ev = &e->xbutton;
+	char *text, *s, ch;
 
 	click = ClkRootWin;
 	/* focus monitor if necessary */
@@ -1019,6 +1025,30 @@ getatomprop(Client *c, Atom prop)
 		XFree(p);
 	}
 	return atom;
+}
+
+pid_t
+getstatusbarpid()
+{
+	char buf[32], *str = buf, *c;
+	FILE *fp;
+
+	if (statuspid > 0) {
+		snprintf(buf, sizeof(buf), "/proc/%u/cmdline", statuspid);
+		if ((fp = fopen(buf, "r"))) {
+			fgets(buf, sizeof(buf), fp);
+			while ((c = strchr(str, '/')))
+				str = c + 1;
+			fclose(fp);
+			if (!strcmp(str, STATUSBAR))
+				return statuspid;
+		}
+	}
+	if (!(fp = popen("pgrep -o "STATUSBAR, "r")))
+		return -1;
+	fgets(buf, sizeof(buf), fp);
+	pclose(fp);
+	return strtol(buf, NULL, 10);
 }
 
 int
@@ -1915,6 +1945,20 @@ sigchld(int unused)
 }
 
 void
+sigstatusbar(const Arg *arg)
+{
+	union sigval sv;
+
+	if (!statussig)
+		return;
+	sv.sival_int = arg->i;
+	if ((statuspid = getstatusbarpid()) <= 0)
+		return;
+
+	sigqueue(statuspid, SIGRTMIN+statussig, sv);
+}
+
+void
 spawn(const Arg *arg)
 {
 	if (arg->v == dmenucmd)
@@ -2331,8 +2375,25 @@ updatesizehints(Client *c)
 void
 updatestatus(void)
 {
-	if (!gettextprop(root, XA_WM_NAME, stext, sizeof(stext)))
+	if (!gettextprop(root, XA_WM_NAME, stext, sizeof(stext))) {
 		strcpy(stext, "dwm-"VERSION);
+		statusw = TEXTW(stext) - lrpad + 2;
+	} else {
+		char *text, *s, ch;
+
+		statusw  = 0;
+		for (text = s = stext; *s; s++) {
+			if ((unsigned char)(*s) < ' ') {
+				ch = *s;
+				*s = '\0';
+				statusw += TEXTW(text) - lrpad;
+				*s = ch;
+				text = s + 1;
+			}
+		}
+		statusw += TEXTW(text) - lrpad + 2;
+
+	}
 	drawbar(selmon);
 }
 
