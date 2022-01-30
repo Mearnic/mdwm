@@ -5,10 +5,10 @@ static const unsigned int borderpx  = 5;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int vertpad            = 2;       /* vertical padding of bar */
-static const int sidepad            = 2;       /* horizontal padding of bar */
+static const int vertpad            = 1;       /* vertical padding of bar */
+static const int sidepad            = 1;       /* horizontal padding of bar */
 static const int horizpadbar        = 5;        /* horizontal padding for statusbar */
-static const int vertpadbar         = 20;        /* vertical padding for statusbar */
+static const int vertpadbar         = 15;        /* vertical padding for statusbar */
 static const char *fonts[]          = { "monospace:size=14","Wuncon Siji:pixelsize=35","SauceCodePro Nerd Font:pixelsize=35" };
 static const char dmenufont[]       = "monospace:size=14";
 static const char col_gray1[]       = "#222222";
