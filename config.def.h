@@ -62,7 +62,7 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "平铺",      tile },    /* first entry is default */
 	{ "全屏",      monocle },
-	{ "浮动",      NULL },    /* no layout function means floating behavior */
+	//{ "浮动",      NULL },    [> no layout function means floating behavior <]
 
 };
 
@@ -173,12 +173,12 @@ static Button buttons[] = {
 	{ ClkStatusText,        0,              Button1,        sigstatusbar,   {.i = 1} },
 	{ ClkStatusText,        0,              Button2,        sigstatusbar,   {.i = 2} },
 	{ ClkStatusText,        0,              Button3,        sigstatusbar,   {.i = 3} },
-	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
-	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
+	{ ClkClientWin,         Mod1Mask,         Button1,        movemouse,      {0} },
+	{ ClkClientWin,         Mod1Mask,         Button2,        togglefloating, {0} },
+	{ ClkClientWin,         Mod1Mask,         Button3,        resizemouse,    {0} },
 	{ ClkTagBar,            0,              Button1,        view,           {0} },
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
-	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
-	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+	{ ClkTagBar,            Mod1Mask,         Button1,        tag,            {0} },
+	{ ClkTagBar,            Mod1Mask,         Button3,        toggletag,      {0} },
 };
 
