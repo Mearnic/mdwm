@@ -61,8 +61,8 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "平铺",      tile },    /* first entry is default */
-	//{ "浮动",      monocle},    [> no layout function means floating behavior <]
 	{ "全屏",      monocle },
+	{ "浮动",      NULL },    /* no layout function means floating behavior */
 
 };
 
@@ -103,8 +103,8 @@ static Key keys[] = {
 	{ Mod1Mask,                     XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	//{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
 	{ Mod1Mask|ShiftMask,           XK_f,      fullscreen,     {0} },
 	//{ Mod1Mask,                     XK_Tab,    focusstack,     {.i = +1 } },
 	//{ Mod1Mask|ShiftMask,           XK_Tab,    focusstack,     {.i = -1 } },
