@@ -15,7 +15,7 @@ static const int sidepad            = 0;       /* horizontal padding of bar */
 static const int horizpadbar        = 5;        /* horizontal padding for statusbar */
 static const int vertpadbar         = 10;        /* vertical padding for statusbar */
 // static const char *fonts[]          = { "monospace:size=14","Wuncon Siji:pixelsize=35","SauceCodePro Nerd Font:pixelsize=35" };
-static const char *fonts[]          = { "SauceCodePro Nerd Font:pixelsize=35" };
+static const char *fonts[]          = { "SauceCodePro Nerd Font:pixelsize=30" };
 static const char dmenufont[]       = "SauceCodePro Nerd Font:size=17";
 static const char col_gray1[]       = "#333333";
 static const char col_gray2[]       = "#444444";
