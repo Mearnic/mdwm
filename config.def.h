@@ -85,10 +85,13 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 //static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *dmenucmd[] = { "dmenu_run", NULL};
 static const char *termcmd[]  = { "alacritty", NULL };
+static const char *flameshotcmd[]  = { "flameshot", "gui", NULL };
 static const char *browerscmd[]  = { "google-chrome-stable", NULL };
 // static const char *termcmd[]  = { "st", NULL };
-static const char scratchpadname[] = "scratchpad";
-static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "200x60", NULL };
+//static const char scratchpadname[] = "scratchpad";
+static const char scratchpadname[] = "快捷终端";
+//static const char *scratchpadcmd[] = { "alacritty", "NULL", scratchpadname, "-g", "200x60", NULL };
+static const char *scratchpadcmd[] = { "alacritty", "--title", scratchpadname , "--option", "window.dimensions.columns=120", "--option", "window.dimensions.lines=36" , NULL };
 
 static const char *upvol[] = { "/home/mearnic/work/bash/core/vol-up.sh", NULL };
 static const char *downvol[] = { "/home/mearnic/work/bash/core/vol-down.sh", NULL };
@@ -98,6 +101,7 @@ static Key keys[] = {
    /* modifier                     key        function        argument */
    { Mod1Mask,           XK_p,      spawn,          {.v = dmenucmd } },
    { Mod1Mask,           XK_F1,      spawn,          {.v = browerscmd } },
+   { Mod1Mask|ControlMask,           XK_a, spawn,          {.v = flameshotcmd } },
    { Mod1Mask|ShiftMask,           XK_Return, spawn,          {.v = termcmd } },
 
    { Mod1Mask|ControlMask,           XK_Up,      spawn,    {.v = upvol } },
